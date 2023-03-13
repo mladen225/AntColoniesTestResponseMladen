@@ -25,6 +25,8 @@ class _TaskTwoScreen extends State<TaskTwoScreen> {
 
       Random random = Random();
 
+      _randomStructList.clear();
+
       for (var i = 0; i < int.parse(structNumberTextController.text); i++) {
 
         Map<String, dynamic> randomStruct = {};
@@ -52,15 +54,17 @@ class _TaskTwoScreen extends State<TaskTwoScreen> {
     int smallestDuplicatePosition = -1;
     int smallestDuplicate = -1;
     int nextRangeStart = 1;
+    bool isFound = false;
 
     for (var i = 0; i < _randomStructList.length; i++) {
 
       for (var j = nextRangeStart; j < _randomStructList.length; j++) {
 
-        if (_randomStructList[i]['value'] == _randomStructList[j]['value']) {
+        if (_randomStructList[i]['value'] == _randomStructList[j]['value'] && !isFound) {
 
           smallestDuplicatePosition = j;
           smallestDuplicate = _randomStructList[j]['value'];
+          isFound = true;
 
         }
 

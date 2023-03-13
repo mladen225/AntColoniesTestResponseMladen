@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:ant_colonies_test_response_mladen/screens/task_one_screen.dart';
-import 'package:ant_colonies_test_response_mladen/screens/task_two_screen.dart';
 
 void main() {
   runApp(const AntColoniesTestResponseMladen());
