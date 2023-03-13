@@ -49,15 +49,33 @@ class _TaskThreeBScreen extends State<TaskThreeBScreen> {
     } else if (!path.contains('.')) {
       Alerts.showAlertDialog(context, 'Invalid path',
           'There has to be one dot in order fo connect the two properties.');
-    } else if (path.split('.').length != 2) {
-      Alerts.showAlertDialog(context, 'Invalid path',
-          'There can be only two properties in the path.');
-    } else if (object[path.split('.')[0]][path.split('.')[1]].runtimeType != String) {
-      Alerts.showAlertDialog(
-          context, 'Wrong path', 'This path does not lead to a string');
     } else {
-      Alerts.showAlertDialog(context, 'Result:',
-          '${object[path.split('.')[0]][path.split('.')[1]]}');
+
+      var tempObject = object[path.split('.')[0]];
+
+      for (var i = 1; i < path.split('.').length; i++) {
+
+        try {
+          tempObject = tempObject[path.split('.')[i]];
+        } catch (e) {
+          print('ERROR $e');
+        }
+
+      }
+
+      try {
+
+        (tempObject.runtimeType == String)
+            ?
+        Alerts.showAlertDialog(context, 'Result:',
+            '$tempObject')
+        :
+        Alerts.showAlertDialog(context, 'Wrong path', 'This path does not lead to a string');
+
+      } catch (e) {
+        print('ERROR $e');
+      }
+
     }
 
     searchTextController.clear();
@@ -84,7 +102,7 @@ class _TaskThreeBScreen extends State<TaskThreeBScreen> {
                       'brackets "()" instead and spaces instead quotation marks.\n\nExample: ( Cars :( expensive : Mercedes , cheep : VW ), Planes :( Big : B747 , Fast : SR71 ))\n\nExample object = { "Cars": '
                       '{ "expensive": "Mercedes", "cheep": "VW" },  "Planes": { "Big": "B747", "Fast": "SR71"}\n\nBy pressing '
                       'the "Submit"  button you can add the object.\n\nOnly '
-                      'numbers and letters are allowed also the maximum number of path component here is two as well.',
+                      'numbers and letters are allowed also the maximum number of path component here is not limited to two.',
                   maxLines: 40,
                   style: TextStyle(fontSize: 16, color: AppSettings.textColor),
                 ),
